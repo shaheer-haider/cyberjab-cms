@@ -203,11 +203,29 @@ const Track: Collection = {
                     description: 'Type of content in this step',
                 },
                 {
-                    type: 'reference',
-                    label: 'Module',
-                    name: 'module',
-                    collections: ['module'],
-                    description: 'Select module (if stepType is "module")',
+                    type: 'object',
+                    label: 'Modules',
+                    name: 'modules',
+                    list: true,
+                    description: 'Select modules (if stepType is "module")',
+                    ui: {
+                        itemProps: (item) => ({
+                            label: item?.module || 'Select Module',
+                        }),
+                        defaultItem: {
+                            name: '',
+                        },
+                    },
+                    fields: [
+                        {
+                            type: 'reference',
+                            label: 'Module',
+                            name: 'module',
+                            collections: ['module'],
+                            required: true,
+                            description: 'Module to include in this step',
+                        },
+                    ],
                 },
                 {
                     type: 'reference',
