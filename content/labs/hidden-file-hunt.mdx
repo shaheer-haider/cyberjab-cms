@@ -1,0 +1,49 @@
+---
+name: Hidden File Hunt
+slug: hidden-file-hunt
+short_description: Find the hidden file.
+description: A file has been hidden somewhere in the home directory structure. Find it!
+labType: challenge
+topic: content/topics/linux.md
+skills:
+  - skill: content/skills/file-system-forensics.md
+instructions: >
+  # Hidden File Hunt
+
+
+  A flag has been hidden in a file somewhere inside the
+  `/home/student/challenge` directory. The file might be hidden (starting with a
+  dot) or just buried deep in subdirectories.
+
+
+  Your mission is to find the file and read its content.
+
+
+  ## Hints
+
+
+  * `ls -a` shows hidden files.
+
+  * `find . -name "*flag*"` might be useful.
+solution: ''
+difficulty: easy
+durationMinutes: 60
+totalPoints: 100
+accessLevel: free
+isPublished: true
+allowHints: true
+hintPenaltyPercent: 5
+maxAttempts: 0
+extensionMinutes: 13
+flags:
+  - name: Hidden Flag
+    description: The content of the hidden file.
+    flagValue: 'flag{hidden_files_are_fun}'
+    points: 100
+    order: 1
+    hint: 'Use ''ls -a'' to see hidden files, or ''find'' to search recursively.'
+    hintPenalty: 10
+    caseSensitive: true
+lesson: ''
+---
+

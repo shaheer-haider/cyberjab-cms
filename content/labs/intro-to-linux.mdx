@@ -1,0 +1,102 @@
+---
+name: Introduction to Linux
+slug: intro-to-linux
+short_description: Master the Linux terminal basics.
+description: >-
+  Learn the basics of the Linux command line, including navigation, file
+  manipulation, and permissions.
+labType: guided
+topic: content/topics/linux.md
+skills:
+  - skill: content/skills/command-line-interface.md
+instructions: >
+  # Introduction to Linux
+
+
+  Welcome to the Linux command line! In this lab, you will learn how to navigate
+  the filesystem and interact with files.
+
+
+  ## Step 1: Navigation
+
+
+  Open your terminal. You are currently in your home directory. To see where you
+  are, type:
+
+
+  ```bash
+
+  pwd
+
+  ```
+
+
+  To list the files in the current directory, type:
+
+
+  ```bash
+
+  ls
+
+  ```
+
+
+  ## Step 2: Reading Files
+
+
+  There is a file named welcome.txt. To read it, use the cat command:
+
+
+  ```bash
+
+  cat welcome.txt
+
+  ```
+
+
+  ### Step 3: Finding the Flag
+
+
+  Navigate to the documents directory:
+
+
+  ```bash
+
+  cd documents
+
+  ```
+
+
+  List the files again. You should see a file named `secret.txt`. Read the
+  contents of `secret.txt` to find the flag.
+
+
+  Enter the flag in the submission box below.
+solution: |
+  # Solution
+
+  * Open the terminal.
+  * Run `cd documents` to enter the documents directory.
+  * Run `ls` to verify the file **secret.txt** exists.
+  * Run `cat secret.txt` to display the content.
+  * The output will be **flag{linux\_filesystem\_master}.**
+difficulty: easy
+durationMinutes: 30
+totalPoints: 50
+accessLevel: free
+isPublished: true
+allowHints: true
+hintPenaltyPercent: 10
+extensionMinutes: 15
+flags:
+  - name: Secret File Flag
+    description: The flag found inside the secret file.
+    flagValue: 'flag{linux_filesystem_master}'
+    points: 50
+    order: 1
+    hint: Try using the 'cat' command to read the file.
+    hintPenalty: 10
+    caseSensitive: true
+lesson: ''
+---
+

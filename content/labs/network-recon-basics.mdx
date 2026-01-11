@@ -1,0 +1,81 @@
+---
+name: Network Reconnaissance Basics
+slug: network-recon-basics
+short_description: Intro to Ping and Nmap.
+description: Learn the fundamentals of network reconnaissance using ping and Nmap.
+labType: guided
+topic: content/topics/offensive-security.md
+skills:
+  - skill: content/skills/port-scanning.md
+instructions: >
+  # Network Reconnaissance Basics
+
+
+  In this lab, you will learn how to discover active hosts and open ports on a
+  network.
+
+
+  ## Step 1: Connectivity Check with Ping
+
+
+  The target machine is located at `10.0.0.5`. First, verify that the target is
+  reachable using ping:
+
+
+  ```bash
+
+  ping -c 4 10.0.0.5
+
+  ```
+
+
+  You should see responses indicating the host is up.
+
+
+  ## Step 2: Port Scanning with Nmap
+
+
+  Now we want to see what services are running on the target. We will use nmap
+  (Network Mapper). Run a basic scan against the target:
+
+
+  ```bash
+
+  nmap 10.0.0.5
+
+  ```
+
+
+  Analyze the output. Which port is listed as open and running HTTP? Enter the
+  port number as the flag (e.g., if port 22 is open, enter 22).
+solution: |
+  Solution
+
+  Run `ping -c 4 10.0.0.5` to verify connectivity.
+
+  Run `nmap 10.0.0.5`.
+
+  The output will show port 80/tcp is open.
+
+  The flag is **80**.
+difficulty: easy
+durationMinutes: 45
+totalPoints: 50
+accessLevel: free
+isPublished: true
+allowHints: true
+hintPenaltyPercent: 10
+maxAttempts: 0
+extensionMinutes: 15
+flags:
+  - name: Open Port
+    description: The port number found to be open on the target.
+    flagValue: '80'
+    points: 50
+    order: 1
+    hint: Look for the port marked as 'open' in the nmap output.
+    hintPenalty: 10
+    caseSensitive: true
+lesson: ''
+---
+

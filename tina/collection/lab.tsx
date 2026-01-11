@@ -27,17 +27,18 @@ const Lab: Collection = {
             description: 'URL-friendly identifier',
         },
         {
-            type: 'rich-text',
-            label: 'Description',
-            name: 'description',
-            description: 'Detailed lab description',
+            type: 'string',
+            label: 'Short Description',
+            name: 'short_description',
+            description: 'Brief lab description', ui: {
+                component: 'textarea',
+            },
         },
         {
             type: 'string',
-            label: 'Short Description',
-            name: 'shortDescription',
-            description: 'Brief summary (max 300 characters)',
-            ui: {
+            label: 'Description',
+            name: 'description',
+            description: 'Detailed lab description', ui: {
                 component: 'textarea',
             },
         },
@@ -67,6 +68,14 @@ const Lab: Collection = {
             name: 'skills',
             list: true,
             description: 'Skills developed in this lab',
+            ui: {
+                itemProps: (item) => ({
+                    label: item?.skill || 'New Skill',
+                }),
+                defaultItem: {
+                    skill: '',
+                },
+            },
             fields: [
                 {
                     type: 'reference',
@@ -307,6 +316,16 @@ const Lab: Collection = {
                     },
                 },
             ],
+            ui: {
+                itemProps: (item) => ({
+                    label: (
+                        item?.name + ' | Pts:' + (item?.points ?? 0) + ' | Penalty:' + (item?.hintPenalty ?? 0)
+                    ) || 'New Flag',
+                }),
+                defaultItem: {
+                    name: '',
+                },
+            },
         },
         {
             type: 'reference',

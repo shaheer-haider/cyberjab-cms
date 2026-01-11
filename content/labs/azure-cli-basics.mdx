@@ -1,0 +1,74 @@
+---
+name: Introduction to Azure CLI
+slug: azure-cli-basics
+short_description: First steps with Azure CLI.
+description: Get started with managing Azure resources using the Command Line Interface.
+labType: guided
+topic: content/topics/azure-security.md
+skills:
+  - skill: content/skills/cloud-administration.md
+instructions: >
+  # Introduction to Azure CLI
+
+
+  In this lab, you will learn how to interact with Microsoft Azure using the az
+  command-line tool.
+
+
+  ## Step 1: Authentication
+
+
+  In a real environment, you would run az login to authenticate. For this lab,
+  you are already authenticated with a managed identity.
+
+
+  Verify your current account information:
+
+
+  ```bash
+
+  az account show
+
+  ```
+
+
+  ## Step 2: Extracting Information
+
+
+  Look at the JSON output from the previous command. Find the value of the state
+  field.
+
+
+  Enter this value as the flag.
+solution: |
+  # Solution
+
+  Run `az account show.`
+
+  Locate the **"state"** key in the JSON output.
+
+  The value should be **"Enabled"**.
+
+  The flag is **Enabled.**
+difficulty: easy
+durationMinutes: 30
+totalPoints: 50
+accessLevel: free
+isPublished: true
+requiresCyberRange: true
+allowHints: true
+hintPenaltyPercent: 10
+maxAttempts: 0
+extensionMinutes: 12
+flags:
+  - name: Subscription State
+    description: The state of the current subscription.
+    flagValue: Enabled
+    points: 50
+    order: 1
+    hint: Use 'az account show' and look for the 'state' field.
+    hintPenalty: 10
+    caseSensitive: true
+lesson: ''
+---
+

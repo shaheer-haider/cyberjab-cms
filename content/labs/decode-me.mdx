@@ -1,0 +1,49 @@
+---
+name: Decode Me
+slug: decode-me
+short_description: Decode the Base64 string.
+description: You found a strange string in a log file. It looks encoded.
+labType: challenge
+topic: content/topics/offensive-security.md
+skills:
+  - skill: content/skills/decoding.md
+instructions: |
+  # Decode Me
+
+  We recovered this string from a suspicious log file:
+
+  ZmxhZ3tiYXNlNjRfaXNfbm90X2VuY3J5cHRpb259
+
+  It looks like it's encoded. Decode it to retrieve the flag.
+
+  ## Hints
+
+  * This looks like Base64.
+  * You can use the base64 command line tool or an online decoder.
+  * echo "STRING" | base64 -d
+solution: ''
+difficulty: easy
+durationMinutes: 30
+totalPoints: 100
+accessLevel: free
+isPublished: true
+isFeatured: false
+requiresCyberRange: false
+timeLimitMinutes: 30
+allowHints: true
+hintPenaltyPercent: 10
+maxAttempts: 0
+allowsExtension: false
+extensionMinutes: 15
+flags:
+  - name: Decoded Flag
+    description: The decoded text.
+    flagValue: The decoded text.
+    points: 100
+    order: 1
+    hint: 'It ends with ''=='', which suggests Base64.'
+    hintPenalty: 10
+    caseSensitive: true
+lesson: ''
+---
+
