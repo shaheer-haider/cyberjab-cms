@@ -7,7 +7,7 @@ const Lesson: Collection = {
     format: 'mdx',
     ui: {
         router: ({ document }) => {
-            return `/lessons/${document._sys.filename}`;
+            return `/lessons/${document._sys.breadcrumbs.join('/')}`;
         },
     },
     fields: [
@@ -121,15 +121,6 @@ const Lesson: Collection = {
             description: 'Estimated time to complete',
             ui: {
                 component: 'number',
-            },
-        },
-        {
-            type: 'boolean',
-            label: 'Has Lab',
-            name: 'hasLab',
-            description: 'Does this lesson have an associated lab?',
-            ui: {
-                component: 'toggle',
             },
         },
         {

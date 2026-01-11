@@ -43,7 +43,7 @@ export default function LessonClientPage(props: ClientPageProps) {
                                 Module: {lesson.module.name}
                             </Link>
                         )}
-                        {lesson.hasLab && lesson.lab && (
+                        {lesson.lab && (
                             <Link
                                 href={`/labs/${lesson.lab._sys?.breadcrumbs.join('/')}`}
                                 className="px-3 py-1 bg-green-100 text-green-800 rounded-full hover:bg-green-200"

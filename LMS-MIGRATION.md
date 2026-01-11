@@ -284,12 +284,6 @@ content/
     { name: 'body', type: 'rich-text', label: 'Content' },
     { name: 'durationMinutes', type: 'number', default: 15 },
     {
-      name: 'hasLab',
-      type: 'boolean',
-      default: false,
-      help: 'Does this lesson have an associated lab?'
-    },
-    {
       name: 'lab',
       type: 'reference',
       collections: ['lab'],

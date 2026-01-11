@@ -40,7 +40,6 @@ const Module: Collection = {
             label: 'Instructor',
             name: 'instructor',
             collections: ['instructor'],
-            required: true,
             description: 'Module instructor',
         },
         {
