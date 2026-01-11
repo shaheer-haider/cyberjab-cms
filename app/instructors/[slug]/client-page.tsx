@@ -22,7 +22,7 @@ export default function InstructorClientPage(props: ClientPageProps) {
             <div className="max-w-4xl mx-auto">
                 <div className="flex flex-col md:flex-row gap-8 items-start">
                     {instructor.profileImage && (
-                        <div className="w-48 h-48 relative rounded-full overflow-hidden flex-shrink-0">
+                        <div className="w-48 h-48 relative rounded-full overflow-hidden shrink-0">
                             <Image
                                 src={instructor.profileImage}
                                 alt={`${instructor.firstName} ${instructor.lastName}`}
