@@ -2,9 +2,6 @@ import { defineConfig } from "tinacms";
 import nextConfig from '../next.config'
 
 // Core Collections
-import Page from "./collection/page";
-import Author from "./collection/author";
-import Tag from "./collection/tag";
 
 // LMS Collections
 import Instructor from "./collection/instructor";
@@ -14,6 +11,7 @@ import Module from "./collection/module";
 import Lesson from "./collection/lesson";
 import Lab from "./collection/lab";
 import Track from "./collection/track";
+import Page from "./collection/page";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -41,9 +39,9 @@ const config = defineConfig({
   },
   schema: {
     collections: [
-      Page,
-      Author,
-      Tag,
+      // Page,
+      // Author,
+      // Tag,
       Instructor,
       Topic,
       Skill,

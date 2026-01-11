@@ -21,7 +21,6 @@ const Module: Collection = {
             type: 'string',
             label: 'Name',
             name: 'name',
-            isTitle: true,
             required: true,
             description: 'Module name',
         },
@@ -30,6 +29,7 @@ const Module: Collection = {
             label: 'Slug',
             name: 'slug',
             required: true,
+            isTitle: true,
             description: 'URL-friendly identifier',
         },
         {

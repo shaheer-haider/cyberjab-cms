@@ -21,7 +21,6 @@ const Track: Collection = {
             type: 'string',
             label: 'Name',
             name: 'name',
-            isTitle: true,
             required: true,
             description: 'Track name (e.g., SOC Analyst Path)',
         },
@@ -30,6 +29,7 @@ const Track: Collection = {
             label: 'Slug',
             name: 'slug',
             required: true,
+            isTitle: true,
             description: 'URL-friendly identifier',
         },
         {
@@ -97,7 +97,6 @@ const Track: Collection = {
             description: 'Hex color code for this track',
             ui: {
                 component: 'color',
-                colorFormat: 'hex',
             },
         },
         {

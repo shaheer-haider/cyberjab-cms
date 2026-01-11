@@ -1,4 +1,5 @@
 import type { Collection } from 'tinacms';
+// import client from '../__generated__/client';
 
 const Instructor: Collection = {
     label: 'Instructors',
@@ -15,7 +16,6 @@ const Instructor: Collection = {
             type: 'string',
             label: 'First Name',
             name: 'firstName',
-            isTitle: true,
             required: true,
         },
         {
@@ -92,6 +92,8 @@ const Instructor: Collection = {
             label: 'Slug',
             name: 'slug',
             required: true,
+            isTitle: true,
+            nameOverride: 'slug',
             description: 'URL-friendly identifier (e.g., john-doe)',
         },
     ],

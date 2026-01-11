@@ -10,7 +10,6 @@ const Topic: Collection = {
             type: 'string',
             label: 'Name',
             name: 'name',
-            isTitle: true,
             required: true,
             description: 'Topic name (e.g., Azure Security, KQL)',
         },
@@ -19,6 +18,7 @@ const Topic: Collection = {
             label: 'Slug',
             name: 'slug',
             required: true,
+            isTitle: true,
             description: 'URL-friendly identifier',
         },
         {
@@ -40,7 +40,6 @@ const Topic: Collection = {
             description: 'Hex color code for this topic',
             ui: {
                 component: 'color',
-                colorFormat: 'hex',
             },
         },
         {

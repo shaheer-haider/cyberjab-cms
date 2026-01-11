@@ -10,7 +10,6 @@ const Skill: Collection = {
             type: 'string',
             label: 'Name',
             name: 'name',
-            isTitle: true,
             required: true,
             description: 'Skill name (e.g., Log Analysis, Incident Response)',
         },
@@ -19,6 +18,7 @@ const Skill: Collection = {
             label: 'Slug',
             name: 'slug',
             required: true,
+            isTitle: true,
             description: 'URL-friendly identifier',
         },
         {

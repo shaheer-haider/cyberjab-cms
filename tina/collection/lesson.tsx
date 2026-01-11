@@ -21,7 +21,6 @@ const Lesson: Collection = {
             type: 'string',
             label: 'Name',
             name: 'name',
-            isTitle: true,
             required: true,
             description: 'Lesson name',
         },
@@ -30,6 +29,7 @@ const Lesson: Collection = {
             label: 'Slug',
             name: 'slug',
             required: true,
+            isTitle: true,
             description: 'URL-friendly identifier',
         },
         {
