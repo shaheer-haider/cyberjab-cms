@@ -6,13 +6,10 @@ import ClientPage from "./[...urlSegments]/client-page";
 export const revalidate = 300;
 
 export default async function Home() {
-  const data = await client.queries.page({
-    relativePath: `home.mdx`,
-  });
-
+  
   return (
-    <Layout rawPageData={data}>
-      <ClientPage {...data} />
+    <Layout rawPageData={''}>
+      {/* <ClientPage {...data} /> */}
     </Layout>
   );
 }

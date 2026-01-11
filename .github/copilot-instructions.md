@@ -2,50 +2,79 @@
 
 ## Project Overview
 
-This project uses **TinaCMS** as a headless CMS with **React** for the frontend. It features a server/client split architecture for efficient data fetching and real-time visual editing capabilities.
+TinaCMS-powered Next.js 15 blog with visual editing, using App Router for server/client component architecture. Content stored as MDX/JSON in `content/` directory with Git-based workflow.
 
 ### Key Concepts
 - **useTina hook**: Client-side visual editing; wraps queries and provides edit mode
 - **tinaField helper**: Connects DOM elements to CMS fields for click-to-edit
-- **TinaClient**: Queries collections and items; used on server side
+- **TinaClient**: Queries collections and items; used on server side (`tina/__generated__/client.ts`)
 - **Server/Client split**: Fetch data on server, render with editing on client
+- **Layout pattern**: All pages wrap content in `Layout` component that fetches global settings
 
 ## Technology Stack
 
+- **Framework**: Next.js 15.3.8 (App Router)
 - **Language**: TypeScript
-- **CMS**: TinaCMS (headless)
-- **UI Framework**: React
-- **File Format**: `.tsx` | `.ts`
-
-### Framework Notes
-- **Next.js (App Router)**: Native server/client component split 
-- **Next.js (Pages Router)**: Native server/client component split
-- **Astro**: Use server components and client islands
-- **Other frameworks**: Adapt the pattern to your framework's conventions
+- **CMS**: TinaCMS 2.9.0 (headless, file-based)
+- **Styling**: Tailwind CSS 4.1, class-variance-authority
+- **Linting**: Biome (not ESLint)
+- **Package Manager**: pnpm
+- **Content**: MDX with rich-text support, stored in `content/`
 
 ## Architecture
 
 ### Core Pattern: Server/Client Split
 
-All pages follow this structure:
-
+**All pages use catch-all routes with breadcrumb-based paths:**
 ```
-page/
-├── page.tsx           # Server component; fetches data
-└── client-page.tsx    # Client component; renders with useTina
+app/
+├── [...urlSegments]/          # Dynamic pages (/about, /features, etc.)
+│   ├── page.tsx              # Server: fetch page data
+│   └── client-page.tsx       # Client: render with useTina
+└── posts/[...urlSegments]/   # Blog posts (/posts/june/learning, etc.)
+    ├── page.tsx              # Server: fetch post data
+    └── client-page.tsx       # Client: render with useTina
 ```
 
-#### Data Flow
+**Critical: Always wrap pages in Layout component**
+```typescript
+// page.tsx (Server component)
+import Layout from '@/components/layout/layout';
+
+const data = await client.queries.post({...});
+return (
+  <Layout rawPageData={data}>
+    <ClientPage {...data} />
+  </Layout>
+);
+```
+
+### Data Flow
 1. **Server (`page.tsx`)**
    - Calls `client.queries.xxx()` to fetch content
    - Returns `{ query, data, variables }` automatically
-   - Passes all three to client component
-   - No visual editing; pure data fetching
+   - Wraps in `Layout` component (fetches global settings)
+   - Passes data to client component
+   - Uses `generateStaticParams()` for static generation with pagination
 
 2. **Client (`client-page.tsx`)**
    - Uses `useTina()` hook with server-fetched data
    - Enables visual editing mode
-   - Renders UI with `data-tina-field` attributes for click-to-edit
+   - Renders UI with `data-tina-field` attributes via `tinaField()`
+   - Imports `components` from `@/components/mdx-components` for TinaMarkdown
+
+3. **Layout (`components/layout/layout.tsx`)**
+   - Server component that fetches global settings (`content/global/index.json`)
+   - Wraps all pages with Header/Footer
+   - Uses `LayoutProvider` for theme and global data context
+
+### Collections Structure
+- **Pages** (`content/pages/*.mdx`): Home, About, etc. - uses block-based editor
+- **Posts** (`content/posts/**/*.mdx`): Blog posts with nested folders
+- **Authors** (`content/authors/*.md`): Author profiles with avatars
+- **Tags** (`content/tags/*.mdx`): Post categorization
+
+All collections defined in `tina/collection/` and registered in `tina/config.tsx`.
 
 ## TinaCMS Client Usage
 
@@ -98,76 +127,94 @@ All `client.queries.xxx()` calls return:
 #### Server Component (page.tsx)
 
 ```typescript
-// app/blog/[slug]/page.tsx
-import { client } from "@/tina/client";
-import ClientPage from "./client-page";
+// app/posts/[...urlSegments]/page.tsx
+import client from '@/tina/__generated__/client';
+import Layout from '@/components/layout/layout';
+import PostClientPage from './client-page';
 
-interface PageProps {
-  params: { slug: string };
+export const revalidate = 300; // ISR: revalidate every 5 minutes
+
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ urlSegments: string[] }>;
+}) {
+  const resolvedParams = await params;
+  const filepath = resolvedParams.urlSegments.join('/');
+  const data = await client.queries.post({
+    relativePath: `${filepath}.mdx`,
+  });
+
+  return (
+    <Layout rawPageData={data}>
+      <PostClientPage {...data} />
+    </Layout>
+  );
 }
 
-export default async function Page({ params }: PageProps) {
-  try {
-    const { query, data, variables } = await client.queries.post({
-      relativePath: `${params.slug}.md`,
+// Static generation with pagination support
+export async function generateStaticParams() {
+  let posts = await client.queries.postConnection();
+  const allPosts = posts;
+
+  if (!allPosts.data.postConnection.edges) {
+    return [];
+  }
+
+  // Handle pagination
+  while (posts.data?.postConnection.pageInfo.hasNextPage) {
+    posts = await client.queries.postConnection({
+      after: posts.data.postConnection.pageInfo.endCursor,
     });
 
-    if (!data.post) {
-      notFound();
-    }
+    if (!posts.data.postConnection.edges) break;
 
-    return <ClientPage query={query} data={data} variables={variables} />;
-  } catch (error) {
-    console.error("Failed to fetch post:", error);
-    notFound();
+    allPosts.data.postConnection.edges.push(...posts.data.postConnection.edges);
   }
+
+  return allPosts.data?.postConnection.edges.map((edge) => ({
+    urlSegments: edge?.node?._sys.breadcrumbs,
+  })) || [];
 }
+```
 ```
 
 #### Client Component (client-page.tsx)
 
 ```typescript
-// app/blog/[slug]/client-page.tsx
-"use client";
+// app/posts/[...urlSegments]/client-page.tsx
+'use client';
 
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { PostQuery, PostQueryVariables } from "@/tina/__generated__/types";
+import { PostQuery } from '@/tina/__generated__/types';
+import { useLayout } from '@/components/layout/layout-context';
+import { Section } from '@/components/layout/section';
 import { components } from '@/components/mdx-components';
 
-interface ClientPageProps {
-  query: string;
+interface ClientPostProps {
   data: PostQuery;
-  variables: PostQueryVariables;
+  variables: { relativePath: string };
+  query: string;
 }
 
-export default function ClientPage({
-  query,
-  data,
-  variables,
-}: ClientPageProps) {
-  const { data: tinaData } = useTina({
-    query,
-    data,
-    variables,
-  });
-
-  const post = tinaData.post;
+export default function PostClientPage(props: ClientPostProps) {
+  const { theme } = useLayout();
+  const { data } = useTina({ ...props });
+  const post = data.post;
 
   return (
-    <article>
+    <Section>
       <h1 data-tina-field={tinaField(post, 'title')}>
         {post.title}
       </h1>
-      <p data-tina-field={tinaField(post, 'description')}>
-        {post.description}
-      </p>
       <div data-tina-field={tinaField(post, 'body')}>
         <TinaMarkdown content={post.body} components={components} />
       </div>
-    </article>
+    </Section>
   );
 }
+```
 ```
 
 ### Index/Archive Pages
@@ -175,23 +222,28 @@ export default function ClientPage({
 #### Server Component (page.tsx)
 
 ```typescript
-// app/blog/page.tsx
-import { client } from "@/tina/client";
+// app/posts/page.tsx
+import client from "@/tina/__generated__/client";
 import ClientPage from "./client-page";
+import Layout from '@/components/layout/layout';
 
-export default async function BlogPage() {
+export default async function PostsPage() {
   const { query, data, variables } = await client.queries.postConnection({
     first: 20,
   });
 
-  return <ClientPage query={query} data={data} variables={variables} />;
+  return (
+    <Layout rawPageData={data}>
+      <ClientPage query={query} data={data} variables={variables} />
+    </Layout>
+  );
 }
 ```
 
 #### Client Component (client-page.tsx)
 
 ```typescript
-// app/blog/client-page.tsx
+// app/posts/client-page.tsx
 "use client";
 
 import { tinaField, useTina } from 'tinacms/dist/react';
@@ -218,8 +270,8 @@ export default function ClientPage({
       <h1>Blog Posts</h1>
       <ul>
         {edges.map((edge: any) => (
-          <li key={edge.node.sys.relativePath}>
-            <Link href={`/blog/${edge.node._sys.filename}`}>
+          <li key={edge.node._sys.filename}>
+            <Link href={`/posts/${edge.node._sys.breadcrumbs.join('/')}`}>
               <h2 data-tina-field={tinaField(edge.node, 'title')}>
                 {edge.node.title}
               </h2>
@@ -230,6 +282,7 @@ export default function ClientPage({
     </div>
   );
 }
+```
 ```
 
 ## data-tina-field Attribute
@@ -750,25 +803,31 @@ export default function ClientPage({
 
 ## Code Style and Patterns
 
+### Linting & Formatting
+- **Use Biome, NOT ESLint** - configured in `biome.json`
+- Indentation: 2 spaces
+- Line width: 160 characters
+- Ignored: `**/__generated__`, `**/.next/**`, `**/node_modules`
+
 ### File Organization
 
 ```
-src/
-├── app/                    # Next.js App Router routes
-│   ├── blog/
-│   │   ├── [slug]/
-│   │   │   ├── page.tsx           # Server component
-│   │   │   └── client-page.tsx    # Client component
-│   │   ├── page.tsx               # Index server
-│   │   └── client-page.tsx        # Index client
-├── components/
-│   ├── ClientPage.tsx      # Reusable client component
-│   └── mdx-components.tsx  # TinaMarkdown custom components
-├── tina/
-│   ├── config.ts           # TinaCMS config
-│   └── __generated__/      # Auto-generated (don't edit)
-└── utils/
-    └── tina-client.ts      # TinaClient setup
+app/
+├── [...urlSegments]/          # Catch-all for pages
+├── posts/[...urlSegments]/    # Catch-all for blog posts
+components/
+├── blocks/                    # Reusable page blocks (Hero, Features, etc.)
+├── layout/                    # Layout components (Header, Footer, Section)
+├── mdx-components.tsx         # TinaMarkdown custom components
+tina/
+├── config.tsx                 # TinaCMS config
+├── collection/                # Schema definitions per collection
+├── __generated__/             # Auto-generated (don't edit)
+content/
+├── pages/                     # Page content (.mdx)
+├── posts/                     # Blog posts (.mdx) - supports nested folders
+├── authors/                   # Author profiles (.md)
+└── tags/                      # Tag definitions (.mdx)
 ```
 
 ### Naming Conventions
@@ -850,13 +909,29 @@ export default function ClientPage(props: ClientPageProps) {
   return <article>{/* render tinaData */}</article>;
 }
 ```
+```
 
 ## Development Workflow
+
+### Commands
+```bash
+pnpm dev              # Start dev server with TinaCMS (http://localhost:3000)
+pnpm build            # Production build with TinaCMS cloud
+pnpm build-local      # Local build without cloud checks
+pnpm start            # Production server
+pnpm lint             # Run Biome linter (NOT eslint)
+tinacms codegen       # Regenerate TypeScript types
+```
+
+### TinaCMS Editing
+- **Visual Editor**: Navigate to `/admin` when dev server is running
+- **Local GraphQL**: http://localhost:4001/altair/ for query testing
+- **Content Files**: Edit `.mdx` or `.json` files in `content/` folder directly
 
 ### Before Making Changes
 
 1. Check existing patterns in the codebase
-2. Review `/docs` for architecture and guidelines
+2. Review this file for architecture and guidelines
 3. Ensure changes align with project goals
 
 ### Making Changes
@@ -869,11 +944,12 @@ export default function ClientPage(props: ClientPageProps) {
 ### After Making Changes
 
 1. ✅ Verify TypeScript compiles: `tsc --noEmit`
-2. ✅ Test TinaCMS locally in visual editing mode
-3. ✅ Verify `tinaField()` attributes are correct
-4. ✅ Test server and client components separately
-5. ✅ Document significant changes
-6. ✅ Commit with clear messages
+2. ✅ Run linter: `pnpm lint`
+3. ✅ Test TinaCMS locally in visual editing mode
+4. ✅ Verify `tinaField()` attributes are correct
+5. ✅ Test server and client components separately
+6. ✅ Document significant changes
+7. ✅ Commit with clear messages
 
 ### Commit Guidelines
 
@@ -1129,6 +1205,13 @@ Before completing a feature:
 - **React Docs**: https://react.dev/docs
 
 Check existing pages in this repo for patterns and examples.
+
+---
+
+**Last Updated**: 2025-01-28
+**Language**: TypeScript
+**CMS**: TinaCMS
+**UI**: React
 
 ---
 

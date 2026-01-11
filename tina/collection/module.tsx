@@ -1,0 +1,147 @@
+import type { Collection } from 'tinacms';
+
+const Module: Collection = {
+    label: 'Modules',
+    name: 'module',
+    path: 'content/modules',
+    format: 'mdx',
+    ui: {
+        router: ({ document }) => {
+            return `/modules/${document._sys.filename}`;
+        },
+    },
+    fields: [
+        {
+            type: 'string',
+            label: 'External ID',
+            name: 'externalId',
+            description: 'UUID for import/export operations',
+        },
+        {
+            type: 'string',
+            label: 'Name',
+            name: 'name',
+            isTitle: true,
+            required: true,
+            description: 'Module name',
+        },
+        {
+            type: 'string',
+            label: 'Slug',
+            name: 'slug',
+            required: true,
+            description: 'URL-friendly identifier',
+        },
+        {
+            type: 'rich-text',
+            label: 'Description',
+            name: 'description',
+            description: 'Detailed module description',
+        },
+        {
+            type: 'string',
+            label: 'Short Description',
+            name: 'shortDescription',
+            description: 'Brief summary (max 300 characters)',
+            ui: {
+                component: 'textarea',
+            },
+        },
+        {
+            type: 'reference',
+            label: 'Instructor',
+            name: 'instructor',
+            collections: ['instructor'],
+            required: true,
+            description: 'Module instructor',
+        },
+        {
+            type: 'reference',
+            label: 'Topic',
+            name: 'topic',
+            collections: ['topic'],
+            description: 'Primary topic category',
+        },
+        {
+            type: 'image',
+            label: 'Cover Photo',
+            name: 'photo',
+            // @ts-ignore
+            uploadDir: () => 'modules',
+        },
+        {
+            type: 'string',
+            label: 'Difficulty',
+            name: 'difficulty',
+            options: [
+                { label: 'Easy', value: 'easy' },
+                { label: 'Medium', value: 'medium' },
+                { label: 'Hard', value: 'hard' },
+            ],
+            ui: {
+                component: 'select',
+            },
+        },
+        {
+            type: 'number',
+            label: 'Duration (Hours)',
+            name: 'durationHours',
+            description: 'Estimated hours to complete',
+            ui: {
+                component: 'number',
+            },
+        },
+        {
+            type: 'string',
+            label: 'Access Level',
+            name: 'accessLevel',
+            options: [
+                { label: 'Free', value: 'free' },
+                { label: 'Basic', value: 'basic' },
+                { label: 'Premium', value: 'premium' },
+            ],
+            ui: {
+                component: 'select',
+            },
+            description: 'Minimum tier required',
+        },
+        {
+            type: 'boolean',
+            label: 'Published',
+            name: 'isPublished',
+            description: 'Is this module published?',
+            ui: {
+                component: 'toggle',
+            },
+        },
+        {
+            type: 'boolean',
+            label: 'Featured',
+            name: 'isFeatured',
+            description: 'Show in featured section',
+            ui: {
+                component: 'toggle',
+            },
+        },
+        {
+            type: 'boolean',
+            label: 'Cyber Range',
+            name: 'isCyberRange',
+            description: 'Part of Cyber Range curriculum',
+            ui: {
+                component: 'toggle',
+            },
+        },
+        {
+            type: 'number',
+            label: 'Cyber Range Order',
+            name: 'cyberRangeOrder',
+            description: 'Display order in Cyber Range',
+            ui: {
+                component: 'number',
+            },
+        },
+    ],
+};
+
+export default Module;

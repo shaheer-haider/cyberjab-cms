@@ -1,11 +1,19 @@
 import { defineConfig } from "tinacms";
 import nextConfig from '../next.config'
 
-import Post from "./collection/post";
-import Global from "./collection/global";
-import Author from "./collection/author";
+// Core Collections
 import Page from "./collection/page";
+import Author from "./collection/author";
 import Tag from "./collection/tag";
+
+// LMS Collections
+import Instructor from "./collection/instructor";
+import Topic from "./collection/topic";
+import Skill from "./collection/skill";
+import Module from "./collection/module";
+import Lesson from "./collection/lesson";
+import Lab from "./collection/lab";
+import Track from "./collection/track";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -32,7 +40,18 @@ const config = defineConfig({
     basePath: nextConfig.basePath?.replace(/^\//, '') || '', // The base path of the app (could be /blog)
   },
   schema: {
-    collections: [Page, Post, Author, Tag, Global],
+    collections: [
+      Page,
+      Author,
+      Tag,
+      Instructor,
+      Topic,
+      Skill,
+      Module,
+      Lesson,
+      Lab,
+      Track,
+    ],
   },
 });
 
