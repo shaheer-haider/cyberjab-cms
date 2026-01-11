@@ -6,11 +6,6 @@ const Instructor: Collection = {
     name: 'instructor',
     path: 'content/instructors',
     format: 'md',
-    ui: {
-        router: ({ document }) => {
-            return `/instructors/${document._sys.filename}`;
-        },
-    },
     fields: [
         {
             type: 'string',

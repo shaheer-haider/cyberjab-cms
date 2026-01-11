@@ -22,10 +22,13 @@ const Topic: Collection = {
             description: 'URL-friendly identifier',
         },
         {
-            type: 'rich-text',
+            type: 'string',
             label: 'Description',
             name: 'description',
             description: 'Detailed description of this topic',
+            ui: {
+                component: 'textarea',
+            },
         },
         {
             type: 'string',

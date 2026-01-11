@@ -13,12 +13,6 @@ const Module: Collection = {
     fields: [
         {
             type: 'string',
-            label: 'External ID',
-            name: 'externalId',
-            description: 'UUID for import/export operations',
-        },
-        {
-            type: 'string',
             label: 'Name',
             name: 'name',
             required: true,
@@ -33,16 +27,10 @@ const Module: Collection = {
             description: 'URL-friendly identifier',
         },
         {
-            type: 'rich-text',
+            type: 'string',
             label: 'Description',
             name: 'description',
             description: 'Detailed module description',
-        },
-        {
-            type: 'string',
-            label: 'Short Description',
-            name: 'shortDescription',
-            description: 'Brief summary (max 300 characters)',
             ui: {
                 component: 'textarea',
             },

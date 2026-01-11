@@ -22,10 +22,13 @@ const Skill: Collection = {
             description: 'URL-friendly identifier',
         },
         {
-            type: 'rich-text',
+            type: 'string',
             label: 'Description',
             name: 'description',
             description: 'What does this skill involve?',
+            ui: {
+                component: 'textarea',
+            },
         },
         {
             type: 'reference',

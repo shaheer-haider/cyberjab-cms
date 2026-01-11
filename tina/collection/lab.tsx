@@ -13,12 +13,6 @@ const Lab: Collection = {
     fields: [
         {
             type: 'string',
-            label: 'External ID',
-            name: 'externalId',
-            description: 'UUID for import/export operations',
-        },
-        {
-            type: 'string',
             label: 'Name',
             name: 'name',
             required: true,
