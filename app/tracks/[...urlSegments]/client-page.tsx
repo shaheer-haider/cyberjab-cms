@@ -25,12 +25,12 @@ export default function TrackClientPage(props: ClientPageProps) {
                         {track.name}
                     </h1>
 
-                    {track.shortDescription && (
+                    {track.short_description && (
                         <p
                             className="text-xl text-gray-600 mb-6"
-                            data-tina-field={tinaField(track, 'shortDescription')}
+                            data-tina-field={tinaField(track, 'short_description')}
                         >
-                            {track.shortDescription}
+                            {track.short_description}
                         </p>
                     )}
 

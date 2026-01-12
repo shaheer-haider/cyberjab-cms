@@ -38,12 +38,12 @@ export default function ModuleClientPage(props: ClientPageProps) {
                         {module.name}
                     </h1>
 
-                    {module.shortDescription && (
+                    {module.short_description && (
                         <p
                             className="text-xl text-gray-600 mb-6"
-                            data-tina-field={tinaField(module, 'shortDescription')}
+                            data-tina-field={tinaField(module, 'short_description')}
                         >
-                            {module.shortDescription}
+                            {module.short_description}
                         </p>
                     )}
 

@@ -28,6 +28,15 @@ const Module: Collection = {
         },
         {
             type: 'string',
+            label: 'Short Description',
+            name: 'short_description',
+            description: 'Brief module summary',
+            ui: {
+                component: 'textarea',
+            },
+        },
+        {
+            type: 'string',
             label: 'Description',
             name: 'description',
             description: 'Detailed module description',

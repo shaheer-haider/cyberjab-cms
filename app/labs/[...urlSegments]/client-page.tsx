@@ -38,12 +38,12 @@ export default function LabClientPage(props: ClientPageProps) {
                         {lab.name}
                     </h1>
 
-                    {lab.shortDescription && (
+                    {lab.short_description && (
                         <p
                             className="text-xl text-gray-600 mb-6"
-                            data-tina-field={tinaField(lab, 'shortDescription')}
+                            data-tina-field={tinaField(lab, 'short_description')}
                         >
-                            {lab.shortDescription}
+                            {lab.short_description}
                         </p>
                     )}
 
@@ -103,7 +103,7 @@ export default function LabClientPage(props: ClientPageProps) {
                     <div className="mb-8">
                         <h2 className="text-2xl font-bold mb-4">Overview</h2>
                         <div className="prose prose-lg max-w-none" data-tina-field={tinaField(lab, 'description')}>
-                            <TinaMarkdown content={lab.description} components={components} />
+                            <div>{lab.description}</div>
                         </div>
                     </div>
                 )}

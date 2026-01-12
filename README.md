@@ -1,7 +1,5 @@
 # Tina Starter 🦙
 
-![tina-nextjs-starter-demo](https://user-images.githubusercontent.com/103008/130587027-995ccc45-a852-4f90-b658-13e8e0517339.gif)
-
 This Next.js starter is powered by [TinaCMS](https://app.tina.io) for you and your team to visually live edit the structured content of your website. ✨
 
 The content is managed through Markdown and JSON files stored in your GitHub repository, and queried through Tina GraphQL API.
@@ -21,7 +19,7 @@ The content is managed through Markdown and JSON files stored in your GitHub rep
 
 Install the project's dependencies:
 
-> [!NOTE]  
+> [!NOTE]
 > [Do you know the best package manager for Node.js?](https://www.ssw.com.au/rules/best-package-manager-for-node/) Using the right package manager can greatly enhance your development workflow. We recommend using pnpm for its speed and efficient handling of dependencies. Learn more about why pnpm might be the best choice for your projects by checking out this rule from SSW.
 
 
@@ -46,7 +44,7 @@ pnpm dev
 
 ### GitHub Pages
 
-This starter can be deployed to GitHub Pages. A GitHub Actions workflow is included that handles the build and deployment process. 
+This starter can be deployed to GitHub Pages. A GitHub Actions workflow is included that handles the build and deployment process.
 
 To deploy to GitHub Pages:
 

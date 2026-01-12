@@ -221,7 +221,7 @@ content/
     { name: 'name', type: 'string', required: true },
     { name: 'slug', type: 'string', required: true },
     { name: 'description', type: 'rich-text' },
-    { name: 'shortDescription', type: 'string', max: 300 },
+    { name: 'short_description', type: 'string', max: 300 },
     {
       name: 'instructor',
       type: 'reference',
@@ -314,7 +314,7 @@ content/
     { name: 'name', type: 'string', required: true },
     { name: 'slug', type: 'string', required: true },
     { name: 'description', type: 'rich-text' },
-    { name: 'shortDescription', type: 'string', max: 300 },
+    { name: 'short_description', type: 'string', max: 300 },
     {
       name: 'labType',
       type: 'string',
@@ -413,7 +413,7 @@ content/
     { name: 'name', type: 'string', required: true },
     { name: 'slug', type: 'string', required: true },
     { name: 'description', type: 'rich-text' },
-    { name: 'shortDescription', type: 'string', max: 300 },
+    { name: 'short_description', type: 'string', max: 300 },
     {
       name: 'trackType',
       type: 'string',

@@ -1,8 +1,6 @@
 import { defineConfig } from "tinacms";
 import nextConfig from '../next.config'
 
-// Core Collections
-
 // LMS Collections
 import Instructor from "./collection/instructor";
 import Topic from "./collection/topic";
@@ -11,7 +9,6 @@ import Module from "./collection/module";
 import Lesson from "./collection/lesson";
 import Lab from "./collection/lab";
 import Track from "./collection/track";
-import Page from "./collection/page";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -33,15 +30,12 @@ const config = defineConfig({
     },
   },
   build: {
-    publicFolder: "public", // The public asset folder for your framework
-    outputFolder: "admin", // within the public folder
-    basePath: nextConfig.basePath?.replace(/^\//, '') || '', // The base path of the app (could be /blog)
+    publicFolder: "public",
+    outputFolder: "admin",
+    basePath: nextConfig.basePath?.replace(/^\//, '') || '',
   },
   schema: {
     collections: [
-      // Page,
-      // Author,
-      // Tag,
       Instructor,
       Topic,
       Skill,
