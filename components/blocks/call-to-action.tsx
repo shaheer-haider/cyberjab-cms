@@ -3,11 +3,10 @@ import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { iconSchema } from '@/tina/fields/icon';
 import { Button } from '@/components/ui/button'
-import { PageBlocksCta } from '@/tina/__generated__/types';
 import { Icon } from '../icon';
 import { Section } from '../layout/section';
 
-export const CallToAction = ({ data }: { data: PageBlocksCta }) => {
+export const CallToAction = ({ data }: { data: any }) => {
     return (
         <Section>
             <div className="text-center">
@@ -15,7 +14,7 @@ export const CallToAction = ({ data }: { data: PageBlocksCta }) => {
                 <p className="mt-4" data-tina-field={tinaField(data, 'description')}>{data.description}</p>
 
                 <div className="mt-12 flex flex-wrap justify-center gap-4">
-                    {data.actions && data.actions.map(action => (
+                    {data.actions && data.actions.map((action: any) => (
                         <div
                             key={action!.label}
                             data-tina-field={tinaField(action)}

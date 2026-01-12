@@ -5,7 +5,6 @@ import Link from 'next/link';
 import * as React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { PageBlocksHero, PageBlocksHeroImage } from '../../tina/__generated__/types';
 import { Icon } from '../icon';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { AnimatedGroup } from '../motion-primitives/animated-group';
@@ -41,7 +40,7 @@ const transitionVariants = {
   },
 };
 
-export const Hero = ({ data }: { data: PageBlocksHero }) => {
+export const Hero = ({ data }: { data: any }) => {
   // Extract the background style logic into a more readable format
   let gradientStyle: React.CSSProperties | undefined = undefined;
   if (data.background) {
@@ -77,7 +76,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
 
         <AnimatedGroup variants={transitionVariants} className='mt-12 flex flex-col items-center justify-center gap-2 md:flex-row'>
           {data.actions &&
-            data.actions.map((action) => (
+            data.actions.map((action: any) => (
               <div key={action!.label} data-tina-field={tinaField(action)} className='bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5'>
                 <Button asChild size='lg' variant={action!.type === 'link' ? 'ghost' : 'default'} className='rounded-xl px-5 text-base'>
                   <Link href={action!.link!}>
@@ -104,7 +103,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
   );
 };
 
-const ImageBlock = ({ image }: { image: PageBlocksHeroImage }) => {
+const ImageBlock = ({ image }: { image: any }) => {
   if (image.videoUrl) {
     let videoId = '';
     if (image.videoUrl) {

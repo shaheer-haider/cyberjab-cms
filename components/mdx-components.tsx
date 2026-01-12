@@ -4,7 +4,6 @@ import { Components, TinaMarkdown, TinaMarkdownContent } from 'tinacms/dist/rich
 import Image from 'next/image';
 import { Prism } from 'tinacms/dist/rich-text/prism';
 import { Video } from './blocks/video';
-import { PageBlocksVideo } from '@/tina/__generated__/types';
 import { Mermaid } from './blocks/mermaid';
 
 export const components: Components<{
@@ -21,13 +20,13 @@ export const components: Components<{
     children: TinaMarkdownContent;
     disclaimer?: TinaMarkdownContent;
   };
-  video: PageBlocksVideo;
+  video: any;
 }> = {
   code_block: (props) => {
     if (!props) {
       return <></>;
     }
-    
+
     if (props.lang === 'mermaid') {
       return <Mermaid value={props.value} />
     }
