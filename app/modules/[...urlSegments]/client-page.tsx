@@ -78,7 +78,7 @@ export default function ModuleClientPage(props: ClientPageProps) {
 
                 {module.description && (
                     <div className="prose prose-lg max-w-none mb-8" data-tina-field={tinaField(module, 'description')}>
-                        <TinaMarkdown content={module.description} components={components} />
+                        <div>{module.description}</div>
                     </div>
                 )}
             </article>

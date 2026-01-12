@@ -28,6 +28,15 @@ const Track: Collection = {
         },
         {
             type: 'string',
+            label: 'Short Description',
+            name: 'short_description',
+            description: 'Brief summary of the track',
+            ui: {
+                component: 'textarea',
+            },
+        },
+        {
+            type: 'string',
             label: 'Description',
             name: 'description',
             description: 'Detailed track description',

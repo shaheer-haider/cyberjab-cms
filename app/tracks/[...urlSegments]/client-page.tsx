@@ -64,7 +64,7 @@ export default function TrackClientPage(props: ClientPageProps) {
 
                 {track.description && (
                     <div className="prose prose-lg max-w-none mb-12" data-tina-field={tinaField(track, 'description')}>
-                        <TinaMarkdown content={track.description} components={components} />
+                        <div>{track.description}</div>
                     </div>
                 )}
 
@@ -103,13 +103,23 @@ export default function TrackClientPage(props: ClientPageProps) {
                                                     </span>
                                                 )}
                                             </div>
-                                            {step?.module && (
-                                                <Link
-                                                    href={`/modules/${step.module._sys?.breadcrumbs.join('/')}`}
-                                                    className="inline-block mt-3 text-blue-600 hover:text-blue-800"
-                                                >
-                                                    View Module →
-                                                </Link>
+                                            {step?.modules && (
+
+                                                /* Modules are not directly linked from track steps in this implementation */
+                                                step.modules.map((module, modIndex) => (
+                                                    <div key={modIndex} className="mt-2">
+                                                        {/* <span className="inline-block px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
+                                                            Module: {module && module.module.name || 'Module'}
+                                                        </span> */}
+                                                        <Link
+                                                            href={`/modules/${module?.module?._sys?.breadcrumbs?.join('/')}`}
+                                                            className="inline-block mt-3 text-blue-600 hover:text-blue-800"
+                                                        >
+                                                            View {module && module.module.name} →
+                                                        </Link>
+                                                    </div>
+                                                ))
+
                                             )}
                                             {step?.lab && (
                                                 <Link
