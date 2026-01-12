@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "tinacms dev -c \"next dev --turbopack\"",
+    "dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev --turbopack\"",
+    "dev:prod": "TINA_PUBLIC_IS_LOCAL=false tinacms dev -c \"next dev --turbopack\"",
     "build": "tinacms build && next build",
     "build-local": "tinacms build --local --skip-indexing --skip-cloud-checks && next build",
     "start": "tinacms build && next start",
@@ -49,6 +50,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^4.1.15",
     "tinacms": "^2.9.0",
+    "tinacms-authjs": "^17.0.0",
     "tw-animate-css": "^1.4.0",
     "usehooks-ts": "^3.1.1"
   }
