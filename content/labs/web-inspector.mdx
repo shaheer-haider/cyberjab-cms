@@ -1,0 +1,33 @@
+---
+name: Web Inspector
+slug: web-inspector
+short_description: Find the flag in the HTML.
+description: Developers often leave comments in the code. Sometimes they leave secrets.
+labType: challenge
+topic: content/topics/offensive-security.md
+skills:
+  - skill: content/skills/web-reconnaissance.md
+instructions: ''
+solution: ''
+difficulty: easy
+durationMinutes: 45
+totalPoints: 100
+accessLevel: free
+isPublished: true
+timeLimitMinutes: -3
+allowHints: true
+hintPenaltyPercent: 10
+maxAttempts: 0
+extensionMinutes: 10
+flags:
+  - name: HTML Comment Flag
+    description: The flag hidden in the HTML source.
+    flagValue: 'flag{html_comments_are_visible}'
+    points: 100
+    order: 1
+    hint: View Source is your friend.
+    hintPenalty: 10
+    caseSensitive: true
+lesson: ''
+---
+
