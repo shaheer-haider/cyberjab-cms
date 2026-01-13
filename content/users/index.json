@@ -2,10 +2,10 @@
   "users": [
     {
       "name": "Shaheer Haider",
-      "email": "shaheer.haider@example.com",
-      "username": "shaheerhaider",
+      "email": "tinauser@example.com",
+      "username": "tinauser",
       "password": {
-        "value": "12345",
+        "value": "TopClassWinter",
         "passwordChangeRequired": true
       }
     }

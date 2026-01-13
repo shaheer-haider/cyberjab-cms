@@ -1,4 +1,12 @@
 module.exports = {
+  transpilePackages: [
+    '@udecode/plate-core',
+    '@udecode/plate-common',
+    'nanoid',
+  ],
+  experimental: {
+    esmExternals: 'loose',
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
