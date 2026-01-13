@@ -2,7 +2,7 @@
 firstName: Muhammad Shaheer
 lastName: Haider
 email: shaheerhaider00000@gmail.com
-phone: '03010303611'
+phone: '+923010303611'
 bio: ''
 expertise:
   - devops
