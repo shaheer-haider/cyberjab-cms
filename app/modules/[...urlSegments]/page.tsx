@@ -3,6 +3,7 @@ import client from '../../../tina/__generated__/client';
 import Layout from '../../../components/layout/layout';
 import ClientPage from './client-page';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 300;
 
 export default async function ModulePage({
@@ -29,29 +30,7 @@ export default async function ModulePage({
     );
 }
 
-export async function generateStaticParams() {
-    let modules = await client.queries.moduleConnection();
-    const allModules = modules;
-
-    if (!allModules.data.moduleConnection.edges) {
-        return [];
-    }
-
-    while (modules.data?.moduleConnection.pageInfo.hasNextPage) {
-        modules = await client.queries.moduleConnection({
-            after: modules.data.moduleConnection.pageInfo.endCursor,
-        });
-
-        if (!modules.data.moduleConnection.edges) {
-            break;
-        }
-
-        allModules.data.moduleConnection.edges.push(...modules.data.moduleConnection.edges);
-    }
-
-    return (
-        allModules.data?.moduleConnection.edges.map((edge) => ({
-            urlSegments: edge?.node?._sys.breadcrumbs,
-        })) || []
-    );
-}
+// Static generation disabled - pages are generated on-demand
+// export async function generateStaticParams() {
+//     return [];
+// }

@@ -3,6 +3,7 @@ import client from '../../../tina/__generated__/client';
 import Layout from '../../../components/layout/layout';
 import ClientPage from './client-page';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 300;
 
 export default async function TrackPage({
@@ -29,29 +30,7 @@ export default async function TrackPage({
     );
 }
 
-export async function generateStaticParams() {
-    let tracks = await client.queries.trackConnection();
-    const allTracks = tracks;
-
-    if (!allTracks.data.trackConnection.edges) {
-        return [];
-    }
-
-    while (tracks.data?.trackConnection.pageInfo.hasNextPage) {
-        tracks = await client.queries.trackConnection({
-            after: tracks.data.trackConnection.pageInfo.endCursor,
-        });
-
-        if (!tracks.data.trackConnection.edges) {
-            break;
-        }
-
-        allTracks.data.trackConnection.edges.push(...tracks.data.trackConnection.edges);
-    }
-
-    return (
-        allTracks.data?.trackConnection.edges.map((edge) => ({
-            urlSegments: edge?.node?._sys.breadcrumbs,
-        })) || []
-    );
-}
+// Static generation disabled - pages are generated on-demand
+// export async function generateStaticParams() {
+//     return [];
+// }
