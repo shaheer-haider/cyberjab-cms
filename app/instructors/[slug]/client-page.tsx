@@ -2,9 +2,9 @@
 
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { InstructorQuery, InstructorQueryVariables } from '@/tina/__generated__/types';
-import { Section } from '@/components/layout/section';
-import { components } from '@/components/mdx-components';
+import { InstructorQuery, InstructorQueryVariables } from '../../../tina/__generated__/types';
+import { Section } from '../../../components/section';
+import { components } from '../../../components/mdx-components';
 import Image from 'next/image';
 
 interface ClientPageProps {

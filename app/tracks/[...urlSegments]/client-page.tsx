@@ -2,9 +2,9 @@
 
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { TrackQuery, TrackQueryVariables } from '@/tina/__generated__/types';
-import { Section } from '@/components/layout/section';
-import { components } from '@/components/mdx-components';
+import { TrackQuery, TrackQueryVariables } from '../../../tina/__generated__/types';
+import { Section } from '../../../components/layout/section';
+import { components } from '../../../components/mdx-components';
 import Link from 'next/link';
 
 interface ClientPageProps {

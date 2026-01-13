@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import client from '@/tina/__generated__/client';
-import Layout from '@/components/layout/layout';
+import client from '../../../tina/__generated__/client';
+import Layout from '../../../components/layout/layout';
 import ClientPage from './client-page';
 
 export const revalidate = 300;

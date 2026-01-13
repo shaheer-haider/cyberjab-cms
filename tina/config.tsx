@@ -19,7 +19,7 @@ export default defineConfig({
   authProvider: isLocal
     ? new LocalAuthProvider()
     : new UsernamePasswordAuthJSProvider(),
-  contentApiUrlOverride: "/api/tina/gql",
+  contentApiUrlOverride: process.env.NEXT_PUBLIC_TINA_URL || "/api/tina/gql",
   build: {
     publicFolder: "public",
     outputFolder: "admin",
@@ -34,7 +34,7 @@ export default defineConfig({
   schema: {
     collections: [
       TinaUserCollection,
-      // PageCollection,
+      PageCollection,
       Instructor,
       Lab,
       Lesson,

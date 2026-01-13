@@ -2,9 +2,9 @@
 
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { LabQuery, LabQueryVariables } from '@/tina/__generated__/types';
-import { Section } from '@/components/layout/section';
-import { components } from '@/components/mdx-components';
+import { LabQuery, LabQueryVariables } from '../../../tina/__generated__/types';
+import { Section } from '../../../components/layout/section';
+import { components } from '../../../components/mdx-components';
 import Link from 'next/link';
 import Image from 'next/image';
 
