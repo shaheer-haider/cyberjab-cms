@@ -6,6 +6,7 @@ phone: '+923010303611'
 bio: ''
 expertise:
   - devops
+yearsOfExperience: 4
 isActive: true
 slug: shaheer-haider
 ---
